@@ -45,12 +45,13 @@ const dummyProducts = [
 const ProductPage = () => {
   const { id } = useParams();
   const product = dummyProducts.find((p) => p.id === Number(id));
-  const [selectedColor, setSelectedColor] = useState(product?.variants?.color?.[0] || "");
-  const [selectedStorage, setSelectedStorage] = useState(product?.variants?.storage?.[0] || "");
 
   if (!product) {
     return <p className="text-center text-lg font-semibold mt-10">Product not found.</p>;
   }
+
+  const [selectedColor, setSelectedColor] = useState(product.variants?.color?.[0] || "");
+  const [selectedStorage, setSelectedStorage] = useState(product.variants?.storage?.[0] || "");
 
   return (
     <>
@@ -64,7 +65,7 @@ const ProductPage = () => {
               </div>
             ))}
           </Carousel>
-          {/* Flipkart-style Buttons */}
+          {/* Buttons */}
           <div className="mt-4 flex gap-4">
             <button className="w-1/2 bg-orange-500 text-white py-3 font-semibold rounded hover:bg-orange-600">
               🛒 Add to Cart
@@ -74,12 +75,12 @@ const ProductPage = () => {
             </button>
           </div>
         </div>
-  
+
         {/* Right: Product Details */}
         <div className="w-full md:w-1/2">
           <h1 className="text-3xl font-bold">{product.name}</h1>
           <p className="text-2xl font-semibold text-green-600 mt-2">₹{product.price}</p>
-  
+
           {/* Offers */}
           <div className="mt-4 p-4 bg-gray-100 rounded">
             <h2 className="text-lg font-semibold">🔥 Offers</h2>
@@ -89,18 +90,18 @@ const ProductPage = () => {
               ))}
             </ul>
           </div>
-  
+
           {/* Stock Availability & Delivery */}
           <p className={`mt-2 font-semibold ${product.inStock ? "text-green-600" : "text-red-600"}`}>
             {product.inStock ? "✔ In Stock" : "❌ Out of Stock"}
           </p>
           <p className="text-gray-600">{product.delivery}</p>
-  
+
           {/* Variants Selection */}
           <div className="mt-4">
             <h2 className="text-lg font-semibold">Select Variant:</h2>
             <div className="flex gap-2 mt-2">
-              {product.variants.color.map((color, index) => (
+              {product.variants?.color?.map((color, index) => (
                 <button
                   key={index}
                   className={`px-4 py-2 rounded border ${selectedColor === color ? "border-blue-600 bg-blue-100" : "border-gray-300"}`}
@@ -111,7 +112,7 @@ const ProductPage = () => {
               ))}
             </div>
             <div className="flex gap-2 mt-2">
-              {product.variants.storage.map((storage, index) => (
+              {product.variants?.storage?.map((storage, index) => (
                 <button
                   key={index}
                   className={`px-4 py-2 rounded border ${selectedStorage === storage ? "border-blue-600 bg-blue-100" : "border-gray-300"}`}
@@ -122,7 +123,7 @@ const ProductPage = () => {
               ))}
             </div>
           </div>
-  
+
           {/* Specifications */}
           <div className="mt-6 p-4 bg-gray-50 rounded border border-gray-200">
             <h2 className="text-lg font-semibold">📌 Specifications</h2>
@@ -137,27 +138,25 @@ const ProductPage = () => {
               </tbody>
             </table>
           </div>
-  
+
           {/* Share Buttons */}
           <ShareButtons />
-  
+
           {/* Q&A Section */}
           <QnASection qna={product.qna} />
-  
+
           {/* Return Policy */}
           <p className="mt-4 text-gray-600">{product.returnPolicy}</p>
         </div>
       </div>
-  
-{/* Recently Viewed & Recommended Products */}
+
+      {/* Recently Viewed & Recommended Products */}
       <div className="mt-10">
-        
-<RecentlyViewed />
-<RecommendedProducts layout="carousel" />
+        <RecentlyViewed />
+        <RecommendedProducts />
       </div>
     </>
   );
-  
 };
 
 export default ProductPage;
