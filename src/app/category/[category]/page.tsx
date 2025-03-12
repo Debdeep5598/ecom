@@ -17,7 +17,8 @@ const dummyProducts = [
 ];
 
 const CategoryPage = () => {
-  const { category } = useParams();
+  const params = useParams();
+  const category = Array.isArray(params.category) ? params.category[0] : params.category;
   const decodedCategory = category ? decodeURIComponent(category) : ""; // Ensure it's a string
 
   // Filter products based on category
@@ -35,7 +36,7 @@ const CategoryPage = () => {
       {/* Product Listing */}
       <section className="w-full md:w-3/4">
         <h1 className="text-3xl font-bold mb-6 capitalize">{decodedCategory} Products</h1>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => <ProductCard key={product.id} {...product} />)
