@@ -18,14 +18,14 @@ const WishlistPage = () => {
   };
 
   return (
-    <section className="container mx-auto my-10 px-4 flex gap-6">
-      {/* 🔹 Left Sidebar */}
-      <aside className="w-1/4 bg-white shadow-md rounded-lg p-4 h-fit">
+    <section className="container mx-auto my-10 px-4 flex flex-col lg:flex-row gap-6">
+      {/* 🔹 Sidebar (Full-width on mobile, fixed width on desktop) */}
+      <aside className="w-full lg:w-1/4 bg-white shadow-md rounded-lg p-4">
         {/* User Info */}
         <div className="text-center border-b pb-4">
           <Image src="/user.jpg" alt="User Avatar" width={80} height={80} className="rounded-full mx-auto" />
-          <h2 className="text-lg font-semibold mt-2">John Doe</h2>
-          <p className="text-sm text-gray-600">johndoe@example.com</p>
+          <h2 className="text-lg font-semibold mt-2">Raj Verma</h2>
+          <p className="text-sm text-gray-600">rajverma@gmail.com</p>
         </div>
 
         {/* Wishlist Categories */}
@@ -49,14 +49,14 @@ const WishlistPage = () => {
         </div>
       </aside>
 
-      {/* 🔹 Right Content (Wishlist Items) */}
-      <div className="w-3/4 bg-white shadow-lg rounded-lg p-6">
+      {/* 🔹 Wishlist Items (Takes full width on mobile, ¾ width on desktop) */}
+      <div className="w-full lg:w-3/4 bg-white shadow-lg rounded-lg p-6">
         <h1 className="text-3xl font-bold mb-6 text-center">💖 Your Wish List</h1>
 
         {wishlistItems.length === 0 ? (
           <p className="text-gray-600 text-center">Your wishlist is empty.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {wishlistItems.map((item) => (
               <div key={item.id} className="border border-gray-300 rounded-md p-4 shadow-sm bg-white">
                 {/* Image with Improved Styling */}
@@ -69,14 +69,14 @@ const WishlistPage = () => {
                 <p className="text-gray-600">{item.price}</p>
 
                 {/* Buttons */}
-                <div className="flex justify-between mt-4">
+                <div className="flex flex-col sm:flex-row justify-between mt-4 gap-2">
                   <button
                     onClick={() => removeFromWishlist(item.id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition"
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition w-full sm:w-auto"
                   >
                     Remove
                   </button>
-                  <Link href="/cart" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                  <Link href="/cart" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full sm:w-auto text-center">
                     Add to Cart
                   </Link>
                 </div>

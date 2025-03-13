@@ -33,14 +33,15 @@ const CartPage = () => {
   const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <section className="container mx-auto my-10 px-4 flex gap-6">
+    <section className="container mx-auto my-10 px-4 flex flex-col md:flex-row gap-6">
+      
       {/* 🔹 Left Sidebar */}
-      <aside className="w-1/4 bg-white shadow-md rounded-lg p-4 h-fit">
+      <aside className="w-full md:w-1/4 bg-white shadow-md rounded-lg p-4 h-fit">
         {/* User Info */}
         <div className="text-center border-b pb-4">
           <Image src="/user.jpg" alt="User Avatar" width={80} height={80} className="rounded-full mx-auto" />
-          <h2 className="text-lg font-semibold mt-2">John Doe</h2>
-          <p className="text-sm text-gray-600">johndoe@example.com</p>
+          <h2 className="text-lg font-semibold mt-2">Raj Verma</h2>
+          <p className="text-sm text-gray-600">rajverma@gmail.com</p>
         </div>
 
         {/* Discount Section */}
@@ -65,43 +66,58 @@ const CartPage = () => {
       </aside>
 
       {/* 🔹 Right Content (Cart Items) */}
-      <div className="w-3/4 bg-white shadow-lg rounded-lg p-6">
-        <h1 className="text-3xl font-bold mb-6 text-center">🛒 My Cart</h1>
+      <div className="w-full md:w-3/4 bg-white shadow-lg rounded-lg p-6">
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">🛒 My Cart</h1>
 
         {cartItems.length === 0 ? (
-          <p className="text-center">Your cart is empty.</p>
+          <p className="text-center text-lg">Your cart is empty.</p>
         ) : (
           <>
             {cartItems.map((item) => (
-              <div key={item.id} className="border-b py-4 flex items-center gap-4">
+              <div key={item.id} className="border-b py-4 flex flex-col sm:flex-row items-center gap-4">
                 {/* Product Image */}
                 <div className="w-16 h-16 bg-gray-100 flex items-center justify-center rounded-md">
                   <img src={item.image} alt={item.name} className="w-auto h-full object-contain" />
                 </div>
 
                 {/* Item Details */}
-                <div className="flex-grow">
+                <div className="flex-grow text-center sm:text-left">
                   <p className="font-semibold">{item.name}</p>
                   <p>${item.price.toFixed(2)}</p>
                 </div>
 
                 {/* Quantity Controls */}
                 <div className="flex items-center gap-2">
-                  <button onClick={() => decreaseQuantity(item.id)} className="px-2 bg-gray-200 rounded">➖</button>
+                  <button 
+                    onClick={() => decreaseQuantity(item.id)} 
+                    className="px-2 bg-gray-200 rounded text-lg"
+                  >
+                    ➖
+                  </button>
                   <span className="w-6 text-center">{item.quantity}</span>
-                  <button onClick={() => increaseQuantity(item.id)} className="px-2 bg-gray-200 rounded">➕</button>
+                  <button 
+                    onClick={() => increaseQuantity(item.id)} 
+                    className="px-2 bg-gray-200 rounded text-lg"
+                  >
+                    ➕
+                  </button>
                 </div>
 
                 {/* Total Price for Item */}
                 <p className="text-orange-500 font-bold">${(item.price * item.quantity).toFixed(2)}</p>
 
                 {/* Remove Button */}
-                <button onClick={() => removeFromCart(item.id)} className="text-red-500">❌</button>
+                <button 
+                  onClick={() => removeFromCart(item.id)} 
+                  className="text-red-500 text-lg"
+                >
+                  ❌
+                </button>
               </div>
             ))}
 
             {/* Checkout Section */}
-            <div className="mt-6 p-4 bg-gray-100 rounded-md">
+            <div className="mt-6 p-4 bg-gray-100 rounded-md text-center sm:text-left">
               <h3 className="text-xl font-semibold">🧾 Order Summary</h3>
               <div className="flex justify-between text-lg mt-2">
                 <span>Subtotal:</span>
@@ -111,9 +127,11 @@ const CartPage = () => {
                 <span>Total:</span>
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
-              <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md w-full hover:bg-green-600 transition">
-                Proceed to Checkout
-              </button>
+              <Link href="/checkout">
+  <button className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md w-full hover:bg-green-600 transition">
+    Proceed to Checkout
+  </button>
+</Link>
             </div>
           </>
         )}

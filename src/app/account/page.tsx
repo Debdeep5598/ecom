@@ -7,8 +7,8 @@ import Link from "next/link";
 const AccountPage = () => {
   // Dummy User Data (Replace with API Data Later)
   const [user] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
+    name: "Raj Verma",
+    email: "rajverma@gmail.com",
     profilePic: "/user.jpg", // Replace with actual image path
   });
 
